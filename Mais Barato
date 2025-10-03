@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onde é Mais Barato</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      transition: background-color 1s;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .produto {
+      border: 1px solid #ddd;
+      margin: 10px auto;
+      padding: 10px;
+      width: 300px;
+      border-radius: 8px;
+      background: white;
+      text-align: left;
+    }
+    .mais-barato {
+      background-color: #d4edda;
+      border-color: #28a745;
+    }
+    .caro {
+      background-color: #f8d7da;
+      border-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛒 Onde é Mais Barato?</h1>
+  <p>Digite o nome do produto:</p>
+  <input type="text" id="produto" placeholder="Ex: Arroz, Leite, iPhone">
+  <button onclick="buscar()">Buscar</button>
+
+  <div id="resultados"></div>
+
+  <script>
+    // Mock de dados
+    const banco = [
+ {nome: "Arroz 5kg", preco: 29.90, loja: "Mercado A"},
+    {nome: "Arroz 5kg", preco: 32.50, loja: "Supermercado B"},
+    {nome: "Leite 1L", preco: 5.20, loja: "Minimercado C"},
+    {nome: "Leite 1L", preco: 4.90, loja: "Mercado A"},
+    {nome: "Feijao 1kg", preco: 8.50, loja: "Mercado Central"},
+    {nome: "Feijao 1kg", preco: 7.99, loja: "Supermercado B"},
+    {nome: "Macarrao 500g", preco: 4.20, loja: "Mercado A"},
+    {nome: "Macarrao 500g", preco: 4.80, loja: "Supermercado C"},
+    {nome: "Oleo 900ml", preco: 7.50, loja: "Mercado A"},
+    {nome: "Oleo 900ml", preco: 6.99, loja: "Supermercado D"},
+    {nome: "Açucar 1kg", preco: 4.00, loja: "Mercado Popular"},
+    {nome: "Açucar 1kg", preco: 4.30, loja: "Supermercado B"},
+    {nome: "Cafe 500g", preco: 12.50, loja: "Mercado A"},
+    {nome: "Cafe 500g", preco: 11.90, loja: "Supermercado X"},
+    {nome: "Refrigerante 2L", preco: 8.00, loja: "Mercado A"},
+    {nome: "Refrigerante 2L", preco: 7.50, loja: "Mercado Central"},
+    {nome: "Agua Mineral 1.5L", preco: 3.00, loja: "Mercado Popular"},
+    {nome: "Agua Mineral 1.5L", preco: 2.80, loja: "Supermercado B"},
+    {nome: "Sabonete 90g", preco: 2.50, loja: "Farmácia A"},
+    {nome: "Sabonete 90g", preco: 2.20, loja: "Supermercado C"},
+    {nome: "Detergente 500ml", preco: 2.30, loja: "Mercado A"},
+    {nome: "Detergente 500ml", preco: 2.10, loja: "Mercado Central"},
+    {nome: "Shampoo 400ml", preco: 18.90, loja: "Farmácia B"},
+    {nome: "Shampoo 400ml", preco: 17.50, loja: "Supermercado X"},
+    {nome: "iPhone 14", preco: 5299.00, loja: "Loja Oficial"},
+    {nome: "iPhone 14", preco: 5199.00, loja: "Marketplace X"}
+    ];
+
+    function buscar() {
+      const termo = document.getElementById("produto").value.toLowerCase();
+      const filtrados = banco.filter(p => p.nome.toLowerCase().includes(termo));
+
+      const container = document.getElementById("resultados");
+      container.innerHTML = "";
+
+      if (filtrados.length === 0) {
+        container.innerHTML = "<p>Nenhum produto encontrado</p>";
+        return;
+      }
+
+      // Descobrir o preço mais barato
+      const menorPreco = Math.min(...filtrados.map(p => p.preco));
+
+      filtrados.forEach(prod => {
+        const div = document.createElement("div");
+        div.className = "produto";
+        div.innerHTML = `<b>${prod.nome}</b><br>Loja: ${prod.loja}<br>Preço: R$ ${prod.preco.toFixed(2)}`;
+        
+        if (prod.preco === menorPreco) {
+          div.classList.add("mais-barato");
+          div.innerHTML += "<br><b>✅ Mais barato!</b>";
+        } else {
+          div.classList.add("caro");
+        }
+
+        container.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
