@@ -41,7 +41,7 @@
 <body>
   <h1>🛒 Onde é Mais Barato?</h1>
   <p>Digite o nome do produto:</p>
-  <input type="text" id="produto" placeholder="Ex: Arroz, Leite, iPhone">
+  <input type="text" id="produto" placeholder="Ex: Arroz, Leite, Acucar">
   <button onclick="buscar()">Buscar</button>
 
   <div id="resultados"></div>
@@ -89,7 +89,6 @@
         return;
       }
 
-      // Descobrir o preço mais barato
       const menorPreco = Math.min(...filtrados.map(p => p.preco));
 
       filtrados.forEach(prod => {
